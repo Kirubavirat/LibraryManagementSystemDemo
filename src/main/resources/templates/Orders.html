@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Order Details</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+</head>
+<body>
+
+
+<!-- create navigation bar ( header) -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				
+					<a class="navbar-brand" href="#" th:href="@{/}"> GO TO HOME..!
+					</a>
+					
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+					
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+  <div class = "container my-2"> 
+<h1>Order Details</h1>
+<a th:href = "@{/showNewOrderForm}" class="btn btn-info btn-sm mb-3"> Add Orders </a>
+<table border="1" class = "table table-striped table-responsive-md">
+
+<thead>
+				<tr>
+					<th>
+						<a th:href="@{'/page/' + ${currentPage} + '?sortField=title&sortDir=' + ${reverseSortDir}}">
+							Order  Title</a>
+					</th>
+					<th>
+					<a th:href="@{'/page/' + ${currentPage} + '?sortField=booking_date&sortDir=' + ${reverseSortDir}}">
+							Order Booking_Date</a>
+					</th>
+					<th>
+					<a th:href="@{'/page/' + ${currentPage} + '?sortField=quantity&sortDir=' + ${reverseSortDir}}">
+							Order Quantity</a>
+					</th>
+					
+					<th> Actions </th>
+					</tr>
+					</thead>
+				
+			
+
+  <tbody>
+  <tr th:each="Orders : ${listOrders}">
+  <td th:text="${Orders.title}"></td>
+   <td th:text="${Orders.booking_date}"></td>
+    <td th:text="${Orders.quantity}"></td>
+    <td> <a th:href="@{/showFormForOrderUpdate/{id}(id=${Orders.booking_id})}" class="btn btn-success">Update</a>
+       <a th:href="@{/deleteOrders/{id}(id=${Orders.booking_id})}" class="btn btn-danger">Delete</a>
+      </td>
+     
+      
+      
+  </tr>
+  </tbody>
+
+</table>
+</div>
+
+</body>
+</html>
