@@ -11,30 +11,29 @@
 <body>
 
 
-<!-- create navigation bar ( header) -->
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				
-					<a class="navbar-brand" href="#" th:href="@{/}"> GO TO HOME..!
-					</a>
-					
-			</div>
-			<div id="navbar" class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
-					
-				</ul>
-			</div>
-		</div>
-	</nav>
+<nav th:fragment= "header" class="navbar navbar-expand-lg navbar-dark" style="background-color: black; color: white;">
+    <a class="navbar-brand">Library Management System</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+
+        <ul class="navbar-nav mr-auto" >
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
+            </li>
+            
+            
+        </ul>
+    </div>
+    <form action="#" th:action="@{/logout}"
+          method="POST">
+        <input type="submit" value="Logout" class="btn btn-outline-primary mt-2" />
+    </form>
+</nav>
+	
+
 
   <div class = "container my-2"> 
 <h1>Order Details</h1>

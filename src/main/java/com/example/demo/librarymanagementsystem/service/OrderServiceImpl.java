@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.librarymanagementsystem.entity.Orders;
+import com.example.demo.librarymanagementsystem.exception.OrdersNotFoundException;
 import com.example.demo.librarymanagementsystem.repository.OrderRepository;
 
 @Service
@@ -26,13 +27,13 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Orders getOrdersById(int booking_id) {
+	public Orders getOrdersById(int booking_id) throws OrdersNotFoundException {
 		Optional<Orders> optional = orderrepository.findById(booking_id);
 		Orders orders = null;
 		if(optional.isPresent()) {
 			orders = optional.get();
 		}else {
-			throw new RuntimeException("Order not found for id:: " + booking_id);
+			throw new OrdersNotFoundException("Order not found for id:: " + booking_id);
 		}
 		return orders;
 	}

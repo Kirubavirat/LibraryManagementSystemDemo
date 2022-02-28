@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.librarymanagementsystem.entity.Orders;
+
+import com.example.demo.librarymanagementsystem.exception.OrdersNotFoundException;
 import com.example.demo.librarymanagementsystem.service.OrderService;
 
 @ Controller
@@ -36,7 +38,7 @@ public class OrderController {
 		return "redirect:/orderForm";
 	}
 	@GetMapping("/showFormForOrderUpdate/{booking_id}")
-	public String showFormForUpdate(@PathVariable (value="booking_id") int booking_id,Model model) {
+	public String showFormForUpdate(@PathVariable (value="booking_id") int booking_id,Model model) throws OrdersNotFoundException {
 		Orders orders = orderservices.getOrdersById(booking_id);
 		model.addAttribute("orders",orders);
 		return "update_orders";

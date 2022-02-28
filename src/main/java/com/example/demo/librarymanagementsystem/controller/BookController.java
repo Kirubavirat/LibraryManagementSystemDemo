@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.librarymanagementsystem.entity.Books;
+import com.example.demo.librarymanagementsystem.exception.BooksNotFoundException;
 import com.example.demo.librarymanagementsystem.service.BookService;
 
 @ Controller
@@ -23,6 +24,8 @@ public class BookController {
 		model.addAttribute("listBooks",bookservices.getAllBooks());
 		return "Books";
 	}
+	
+	
 	@GetMapping("/showNewBookForm")
 	public String showNewBookForm(Model model) {
 	Books books = new Books();
@@ -36,7 +39,7 @@ public class BookController {
 		return "redirect:/booksForm";
 	}
 	@GetMapping("/showFormForBookUpdate/{book_id}")
-	public String showFormForUpdate(@PathVariable (value="book_id") int book_id,Model model) {
+	public String showFormForUpdate(@PathVariable (value="book_id") int book_id,Model model) throws BooksNotFoundException {
 		Books books = bookservices.getBooksById(book_id);
 		model.addAttribute("books",books);
 		return "update_books";

@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import com.example.demo.librarymanagementsystem.entity.Books;
+import com.example.demo.librarymanagementsystem.exception.BooksNotFoundException;
 import com.example.demo.librarymanagementsystem.repository.BookRepository;
 
 @Service
@@ -18,7 +20,7 @@ public class BookServiceImpl implements BookService {
 		// TODO Auto-generated method stub
 		return bookrepository.findAll();
 	}
-
+	
 	@Override
 	public void saveBooks(Books books) {
 		this.bookrepository.save(books);
@@ -26,13 +28,13 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public Books getBooksById(int book_id) {
+	public Books getBooksById(int book_id) throws BooksNotFoundException {
 		Optional<Books> optional = bookrepository.findById(book_id);
 		Books books = null;
 		if(optional.isPresent()) {
 			books = optional.get();
 		}else {
-			throw new RuntimeException("Book not found for id:: " + book_id);
+			throw new BooksNotFoundException("Book not found for id:: " + book_id);
 		}
 		return books;
 	}
@@ -42,5 +44,10 @@ public class BookServiceImpl implements BookService {
 		this.bookrepository.deleteById(book_id);
 		
 	}
+	
+	
+	
+	
+
 	
 }
